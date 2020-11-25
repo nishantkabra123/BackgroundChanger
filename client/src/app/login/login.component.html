@@ -1,0 +1,18 @@
+<div id="bg">
+  <img  src="" alt="">
+  <img id="bg_image" *ngIf="data.choice!=''" src='{{ "image/" + data.choice + ".jpg" }}'>
+</div>
+
+<form #form="ngForm" style="position: relative;border: 0;" (submit)="login()">
+
+    <div class="container">
+        <div style="color: red;">{{error}}</div>
+      <label for="email"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" #emailId="ngModel" [(ngModel)]="email" name="emailId" required>
+  
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" #pwd="ngModel" [(ngModel)]="password" name="pwd" required>
+          
+      <button type="submit">Login</button>
+    </div>
+  </form>

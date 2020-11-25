@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Task2.Models.ImageModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-controller="Image" asp-action="Index">GreenWare Solutions</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Image" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div>Select Background Image</div><br />
+
+<form method="post" name="form1" asp-action="SubmitImage" asp-controller="Image">
+
+    
+    <select name='choice' onchange='document.form1.submit();'>
+        <option value="">Select Image</option>
+        <option value="Random">Random</option>
+        @foreach (var item in Model)
+        {
+            var val = item.Title;
+            <option value="@val">@Html.DisplayFor(modelItem => item.Title)</option>
+        }
+    </select>
+
+</form>
+
+<br /><br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                Uploaded Image
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td style="width: 400px;">
+                @{ var finalStr = "/image/" + item.ImageName; }
+                <img src="@finalStr" class="" width="150px" height="150px" />
+                @*  @Html.DisplayFor(modelItem => item.ImageName)@("~/image/"+Model.ImageName)*@
+                @*<img src="@Html.DisplayFor(modelItem => item.ImageName)" asp-append-version="true" width="250px" height="250px" />*@
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ImageId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ImageId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ImageId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
